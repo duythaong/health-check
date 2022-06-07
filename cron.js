@@ -24,6 +24,12 @@ const nodes = [
   },
   {
     name: '-',
+    nodeId: '7iXgkoh1uPbDhiCkcT7F3Xhu5hadJx9VV',
+    ip: '198.13.48.77',
+    region: 'JP'
+  },
+  {
+    name: '-',
     nodeId: '715ERjkpFpDUyKwDsoZHsNEoLrkXYQR6h',
     ip: '107.191.42.165',
     region: 'US'
