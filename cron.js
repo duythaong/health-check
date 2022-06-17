@@ -9,36 +9,42 @@ const nodes = [
     nodeId: '7SHqrjiLU7qj3pk1jRDbkGoMQZPHQ7tE3',
     ip: '95.179.192.46',
     region: 'UK',
+    port: 9650
   },
   {
     name: 'Bonbon',
     nodeId: 'Djap76LgWtmnzdKFaexNPNDzYKV8WaNoZ',
     ip: '95.179.192.46',
-    region: 'UK'
+    region: 'UK',
+    port: 9652
   },
   {
     name: 'Crepe',
     nodeId: 'MZJ7xQGtKcYWU3qJdB5LiLdasWHmJQTFQ',
     ip: '198.13.48.77',
-    region: 'JP'
+    region: 'JP',
+    port: 9650
   },
   {
     name: '-',
     nodeId: '7iXgkoh1uPbDhiCkcT7F3Xhu5hadJx9VV',
     ip: '198.13.48.77',
-    region: 'JP'
+    region: 'JP',
+    port: 9652
   },
   {
     name: '-',
     nodeId: '715ERjkpFpDUyKwDsoZHsNEoLrkXYQR6h',
     ip: '107.191.42.165',
-    region: 'US'
+    region: 'US',
+    port: 9650
   },
   {
     name: '-',
     nodeId: '63rSCLEsUh9EKjZGvK5tLhBcDBRJaa6pt',
     ip: '107.191.42.165',
-    region: 'US'
+    region: 'US',
+    port: 9652
   },
 ]
 
@@ -53,9 +59,9 @@ const healthCheck = new CronJob('*/5 * * * *', async () => {
   let detail = '';
   let isSent = false;
   for (let i = 0; i < nodes.length; i++) {
-    const { nodeId, ip, region } = nodes[i];
+    const { nodeId, ip, region, port } = nodes[i];
     try {
-      const { data: { result }} = await axios.post(`http://${ip}:9650/ext/health`, healthBody);  
+      const { data: { result }} = await axios.post(`http://${ip}:${port}/ext/health`, healthBody);  
       for (const key in result.checks) {
         if (result.checks[key].error) {
             detail = `${key} ${result.checks[key].error}\n${detail}`
@@ -81,6 +87,7 @@ const healthCheck = new CronJob('*/5 * * * *', async () => {
     const formHeaders = chatworkBody.getHeaders();
     chatworkBody.append('body', message);
     const chatworkHeader = { headers: { 'X-ChatWorkToken': process.env.CHATWORK_TOKEN, ...formHeaders } }
+    console.log(message)
     if (isSent) {
       await axios.post(chatworkEndpoint, chatworkBody, chatworkHeader).catch(error => console.log(error));
     }
