@@ -46,6 +46,13 @@ const nodes = [
     region: 'US',
     port: 9652
   },
+  {
+    name: '-',
+    nodeId: 'Bc2wqrgFrQUQPfRvpiGmC9Wn653Pm5XN6',
+    ip: '116.58.187.171',
+    region: 'JP',
+    port: 9650
+  },
 ]
 
 const healthBody = {
